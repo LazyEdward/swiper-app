@@ -10,8 +10,8 @@ import { StackParam } from './src/type/StackParam';
 
 import {
 	SafeAreaProvider,
-	useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { defaultScreenOptions, defaultStack, initalStack } from 'src/stack';
 
 const Stack = createNativeStackNavigator<StackParam>();
 
@@ -19,9 +19,10 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Test" component={Test} />
+        <Stack.Navigator initialRouteName={initalStack} screenOptions={defaultScreenOptions}>
+          {defaultStack.map((stack) => (
+            <Stack.Screen key={stack.name} name={stack.name} component={stack.component} />
+          ))}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
