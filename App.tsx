@@ -12,20 +12,24 @@ import {
 	SafeAreaProvider,
 } from 'react-native-safe-area-context';
 import { defaultScreenOptions, defaultStack, initalStack } from 'src/stack';
+import { Provider } from 'react-redux';
+import store from 'src/store/store';
 
 const Stack = createNativeStackNavigator<StackParam>();
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={initalStack} screenOptions={defaultScreenOptions}>
-          {defaultStack.map((stack) => (
-            <Stack.Screen key={stack.name} name={stack.name} component={stack.component} />
-          ))}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={initalStack} screenOptions={defaultScreenOptions}>
+            {defaultStack.map((stack) => (
+              <Stack.Screen key={stack.name} name={stack.name} component={stack.component} />
+            ))}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
